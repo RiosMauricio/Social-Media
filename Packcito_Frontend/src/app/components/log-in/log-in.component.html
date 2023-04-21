@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!-- Coding by CodingLab | www.codinglabweb.com-->
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- Fontawesome CDN Link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <div class="container">
+    <input type="checkbox" id="flip">
+    <div class="cover">
+
+    </div>
+    <div class="forms">
+      <div class="form-content">
+        <div class="login-form">
+          <div class="title">Iniciar Sesion</div>
+          <form>
+            <div class="input-boxes">
+              <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                <input type="email" name="email" placeholder="Ingresa tu email" [(ngModel)]="logUser.email" required>
+              </div>
+              <div class="input-box">
+                <i class="fas fa-lock"></i>
+                <input type="password" name="password" placeholder="Ingresa tu contraseña" [(ngModel)]="logUser.password" required>
+              </div>
+              <div class="text"><a href="#">Olvidaste tu contraseña?</a></div><br>
+              <div>
+                <a (click)="login()" class="mi-boton">Iniciar Sesion</a>
+              </div>
+              <div class="text sign-up-text">Aún no tienes una cuenta? <label for="flip">Registrate</label></div>
+            </div>
+          </form>
+        </div>
+        <div class="signup-form">
+          <div class="title">Crea tu cuenta</div>
+          <form>
+            <div class="input-boxes">
+              <div class="input-box">
+                <i class="fas fa-user"></i>
+                <input type="text" name="username" placeholder="Nombre de usuario" [(ngModel)]="newUser.username" required>
+              </div>
+              <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                <input type="email" name="email" placeholder="Correo electronico" [(ngModel)]="newUser.email" required>
+              </div>
+              <div class="input-box">
+                <i class="fas fa-lock"></i>
+                <input type="password" name="password" placeholder="Contraseña" [(ngModel)]="newUser.password" required>
+              </div>
+              <div>
+                <mat-form-field appearance="fill" style="width: 100%;">
+                  <mat-label>Selecciona tus categorias</mat-label>
+                  <mat-select [formControl]="categories" multiple>
+                    <mat-option *ngFor="let category of categoriesList" [value]="category.id">{{category.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div>
+                <a (click)="createUser()" class="mi-boton">Crear Cuenta</a>
+              </div>
+              <div class="text sign-up-text">Ya tienes una cuenta? <label for="flip">Inicia Sesion</label></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

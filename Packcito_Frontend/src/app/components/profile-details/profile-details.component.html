@@ -1,0 +1,107 @@
+<div >
+    <app-navbar></app-navbar>
+<div class="container-xl px-4" style="margin-left: 10%;" >
+    <!-- Account page navigation-->
+    <mat-tab-group>
+        <mat-tab label="Editar Perfil"><br>
+            <div class="row" style="width: 100%;">
+                <mat-card class="profile-photo-card">
+                    <mat-card-header class="photo-card-header">
+                      <mat-card-title>Foto de Perfil</mat-card-title>
+                    </mat-card-header><br>
+                    <img mat-card-image src="http://localhost:3000/{{logUser.profilePhoto}}" class="profile-imagen">
+                    <mat-card-actions class="photo-card-button">
+                      <button mat-raised-button color="primary" style="width: 200px" *ngIf="editingProfilePhoto == false" (click)="editingProfilePhoto=true" [disabled]="editingBanner == true">Editar Foto de Perfil</button>
+                    </mat-card-actions>
+                    <div *ngIf="editingProfilePhoto == true">
+                      <input class="form-control" name="newProfilePhoto" id="newProfilePhoto" type="file" (change)="selectImage($event)"> 
+                      <mat-card-actions class="text-center">
+                        <button mat-raised-button color="primary" style="width: auto;" (click)="updateProfilePhoto()">Confirmar</button>
+                        <button mat-raised-button color="warn" style="width: auto;" (click)="editingProfilePhoto = !editingProfilePhoto">Cancelar</button>
+                      </mat-card-actions>
+                    </div>
+                  </mat-card>
+                  <mat-card class="profile-banner-card">
+                    <mat-card-header class="photo-card-header">
+                      <mat-card-title>Foto de Portada</mat-card-title>
+                    </mat-card-header><br>
+                    <img mat-card-image src="http://localhost:3000/{{logUser.banner}}" class="banner-imagen">
+                    <mat-card-actions class="photo-card-button">
+                      <button mat-raised-button color="primary" style="width: 200px" (click)="editingBanner = true" [disabled]="editingProfilePhoto == true">Editar Foto de Portada</button>
+                    </mat-card-actions>
+                    <div *ngIf="editingBanner == true">
+                      <input class="form-control" name="newBanner" id="newBanner" type="file" (change)="selectImage($event)">
+                      <mat-card-actions class="text-center">
+                        <button mat-raised-button color="primary" style="width: auto;" (click)="updateBanner()">Confirmar</button>
+                        <button mat-raised-button color="warn" style="width: auto;" (click)="editingBanner= !editingBanner">Cancelar</button>
+                      </mat-card-actions>
+                    </div>
+                  </mat-card>
+            </div>
+            <div class="row" style="width: 100%;">
+                <div style="max-width: 67%; margin-left: 34%;"><br>
+                    <!-- Account details card-->
+                    <div class="card mb-4">
+                        <div class="photo-card-header">
+                            <mat-card-title style="font-size: 20px; padding: 10px">Detalles de la cuenta</mat-card-title>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <!-- Form Row-->
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (username)-->
+                                    <div class="col-md-12">
+                                        <label class="small mb-1" for="inputUserName">Nombre de Usuario</label>
+                                        <input class="form-control" name="username" id="inputUserName" type="text" [(ngModel)]="logUser.username">
+                                    </div>
+                                </div>
+                                 <!-- Form Group (email)-->
+                                 <div class="mb-3">
+                                    <label class="small mb-1" for="inputUserEmail">Correo Electronico</label>
+                                    <input class="form-control" name="email" id="inputUserEmail" type="text" [(ngModel)]="logUser.email">
+                                </div>  
+                                <!-- Form Group (email)-->
+                                <div class="mb-3">
+                                  <label class="small mb-1" for="inputUserDescription">Descripción (Todos los usuarios podrán verla en tu perfil)</label>
+                                  <input class="form-control" name="description" id="inputUserDescription" type="text" [(ngModel)]="logUser.description">
+                              </div>  
+
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputUserEmail">Categorias (Si quieres quitar alguna categoria, dejala sin seleccion)</label>
+                                    <mat-form-field appearance="fill" style="width: 100%;">
+                                        <mat-label>Tus categorias actuales son: </mat-label>
+                                        <mat-label *ngFor="let name of userCategoriesName">{{name}} </mat-label>
+                                        <mat-select [formControl]="categories" multiple>
+                                          <mat-option *ngFor="let category of categoriesList" [value]="category.id" >{{category.name}}</mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                </div>
+                                <mat-card-actions class="photo-card-button">
+                                  <button mat-raised-button color="primary" style="width: 200px" (click)="updateProfile()">Guardar Cambios</button>
+                                </mat-card-actions>
+
+                                <mat-slide-toggle (change)="changePassword = !changePassword">¿Deseas Cambiar tu contraseña?</mat-slide-toggle>
+                                <!-- Form Group (username)-->
+                                  <div class="mb-3" *ngIf="changePassword == true">
+                                      <label class="small mb-1" for="inputActualPassword">Contraseña Actual</label>
+                                      <input class="form-control" name="actualpassword" id="inputActualPassword" type="password" [(ngModel)]="actualPassword">
+                                  </div> 
+                                  <div class="mb-3" *ngIf="changePassword == true">
+                                      <label class="small mb-1" for="inputNewPassword">Nueva Contraseña</label>
+                                      <input class="form-control" name="actualpassword" id="inputNewPassword" type="password" [(ngModel)]="newPassword">
+                                  </div> 
+                                <!-- Save changes button-->
+                                <mat-card-actions class="photo-card-button">
+                                    <button mat-raised-button color="primary" style="width: 215px" (click)="updatePassword()" *ngIf="changePassword == true">Establecer nueva contraseña</button>
+                                  </mat-card-actions>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Second"> Content 2 </mat-tab>
+        <mat-tab label="Third"> Content 3 </mat-tab>
+      </mat-tab-group>
+    
+</div>

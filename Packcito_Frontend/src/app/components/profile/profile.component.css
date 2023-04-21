@@ -1,0 +1,49 @@
+.banner {
+    position: relative;
+  }
+
+  .banner img {
+    object-fit: cover;
+    width: 100%;
+    height: 300px;
+  }
+
+  .profile-section {
+    margin-top: -8%;
+  }
+  
+  .rounded-circle {
+    align-self: center;
+    border: 5px solid white;
+    width: 350px;
+    height: 300px;
+    margin: auto;
+  }
+
+  hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-top: 1px solid #BFBFBF;
+  }
+
+  .text-secondary {
+    color: #BFBFBF;
+  }
+
+  .packCard{
+    width: 60%;
+    margin-left: 10%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+  }
+
+  .anyPost {
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+  }
+  
+
+  

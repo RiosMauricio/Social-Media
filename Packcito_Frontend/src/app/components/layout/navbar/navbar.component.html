@@ -1,0 +1,60 @@
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NavBar</title>
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<div class="sidebar">
+  <ul class="nav-list">
+    <li>
+      <a href="/feed">
+        <i class='bx bx-home'></i>
+        <span class="links_name">Home</span>
+      </a>
+      <span class="tooltip">Home</span>
+    </li>
+    <li>
+      <a href="/" *ngIf="sessionActive==false">
+        <i class='bx bx-globe'></i>
+        <span class="links_name">Sobre Nosotros</span>
+      </a>
+      <span class="tooltip">Sobre Nosotros</span>
+    </li>
+    <li>
+      <a href="/log-in" *ngIf="sessionActive==false">
+        <i class='bx bx-log-in'></i>
+        <span class="links_name">Inicia Sesion o Crea una cuenta</span>
+      </a>
+      <span class="tooltip">Inicia Sesion o Crea una cuenta</span>
+    </li>
+    <li>
+      <a (click)="viewProfile()" *ngIf="sessionActive==true">
+        <i class='bx bx-user'></i>
+        <span class="links_name">User</span>
+      </a>
+      <span class="tooltip">User</span>
+    </li>
+    <li>
+      <a href="#" *ngIf="sessionActive==true">
+        <i class='bx bx-chat'></i>
+        <span class="links_name">Messages</span>
+      </a>
+      <span class="tooltip">Messages</span>
+    </li>
+    <li>
+      <a href="/profile-details" *ngIf="sessionActive==true">
+        <i class='bx bx-cog'></i>
+        <span class="links_name">Editar Perfil</span>
+      </a>
+      <span class="tooltip">Editar Perfil</span>
+    </li>
+    <li>
+      <a (click)="logOut()" *ngIf="sessionActive==true" style="position: absolute; bottom: 0">
+        <i class='bx bx-log-out'></i>
+        <span class="links_name">Cerrar Sesion</span>
+      </a>
+    </li>
+  </ul>
+</div>
