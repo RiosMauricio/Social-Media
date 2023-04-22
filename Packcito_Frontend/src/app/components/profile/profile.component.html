@@ -1,3 +1,7 @@
+<head>
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
 <app-navbar></app-navbar> <!-- Barra de navegación personalizada -->
 
 <body style="width: 100%; overflow-x: hidden;">
@@ -45,8 +49,11 @@
               <mat-tab-group mat-align-tabs="center">
                 <mat-tab label="Packs Gratuitos"> <!--Pestaña de Packs Gratuitos-->
                   <div class="row" style="width: 100%;"> 
-                    <div class="anyPost" *ngIf="userFreePackages.length == 0"><!--Si no hay publicaciones, se muestra este mensaje.-->
+                    <div class="emptyPacks" *ngIf="userFreePackages.length == 0"><!--Si no hay publicaciones, se muestra este mensaje.-->
                       <p>No hay publicaciones</p>
+                      <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon" *ngIf="user.id == userLoggedId" (click)="createPackage()">
+                        <i class='bx bx-plus'></i>
+                      </button>
                     </div>
                     <div class="col-md-6 col-sm-12" *ngFor="let pack of userFreePackages"> 
                       <mat-card class="packCard"><!--Tarjeta de pack gratiuto-->
@@ -68,30 +75,49 @@
                         </mat-card-actions>
                       </mat-card>
                     </div>
+                    <div class="col-md-6" *ngIf="user.id == userLoggedId && userPayPackages.length > 0">
+                      <mat-card class="packCard">
+                        <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon" (click)="createPackage()">
+                          <i class='bx bx-plus'></i>
+                        </button>
+                      </mat-card>
+                    </div>
                   </div>
                 </mat-tab>
                 <mat-tab label="Pack Pagos"><!--Pestaña de Packs Pagos-->
-                  <div class="anyPost" *ngIf="userPayPackages.length == 0"><!--Si no hay publicaciones, se muestra este mensaje.-->
-                    <p>No hay publicaciones</p>
-                  </div>
-                  <div class="col-md-6 col-sm-12" *ngFor="let pack of userPayPackages"> 
-                    <mat-card class="packCard"> <!--Tarjeta de pack pago-->
-                      <mat-card-header style="justify-content: center">
-                        <mat-card-title>{{pack.title}}</mat-card-title>
-                      </mat-card-header>
-                      <img mat-card-image src="http://localhost:3000/{{pack.icon}}" alt="Photo of a Shiba Inu">
-                      <mat-card-content>
-                        <p>
-                          {{pack.description}}
-                        </p>
-                        <hr />
-                        <p>Valoracion: {{pack.valoration}}</p>
-                      </mat-card-content>
-                      <mat-card-actions>
-                        <button mat-raised-button color="accent">Ver Contenido</button>
-                      </mat-card-actions>
-                    </mat-card>
-                  </div>
+                  <div class="row" style="width: 100%;">
+                    <div class="emptyPacks" *ngIf="userPayPackages.length == 0"><!--Si no hay publicaciones, se muestra este mensaje.-->
+                      <p>No hay publicaciones</p>
+                      <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon" *ngIf="user.id == userLoggedId" (click)="createPackage()">
+                        <i class='bx bx-plus'></i>
+                      </button>
+                    </div>
+                    <div class="col-md-6 col-sm-12" *ngFor="let pack of userPayPackages"> 
+                      <mat-card class="packCard"> <!--Tarjeta de pack pago-->
+                        <mat-card-header style="justify-content: center">
+                          <mat-card-title>{{pack.title}}</mat-card-title>
+                        </mat-card-header>
+                        <img mat-card-image src="http://localhost:3000/{{pack.icon}}" alt="Photo of a Shiba Inu">
+                        <mat-card-content>
+                          <p>
+                            {{pack.description}}
+                          </p>
+                          <hr />
+                          <p>Valoracion: {{pack.valoration}}</p>
+                        </mat-card-content>
+                        <mat-card-actions>
+                          <button mat-raised-button color="accent">Comprar Pack</button>
+                        </mat-card-actions>
+                      </mat-card>
+                    </div>
+                    <div class="col-md-6" *ngIf="user.id == userLoggedId && userPayPackages.length > 0" (click)="createPackage()">
+                      <mat-card class="packCard">
+                        <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+                          <i class='bx bx-plus'></i>
+                        </button>
+                      </mat-card>
+                    </div>
+                  </div>            
                 </mat-tab>
               </mat-tab-group>              
             </div>

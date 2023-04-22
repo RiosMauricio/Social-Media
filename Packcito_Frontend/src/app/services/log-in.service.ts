@@ -46,9 +46,13 @@ export class LogInService {
     sessionStorage.removeItem("id");
   }
 
-  public userLoggedId() {
+  userLoggedId() {
     var usuario = sessionStorage.getItem("id");
-    return usuario;
+    if (usuario !== null) {
+      return parseInt(usuario);
+    }
+    // en caso de que usuario sea null, se podría devolver otro valor o lanzar una excepción
+    return null;
   }
 
 
