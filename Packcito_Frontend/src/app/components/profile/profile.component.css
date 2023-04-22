@@ -31,13 +31,13 @@
   }
 
   .packCard{
-    width: 60%;
+    width: 90%;
     margin-left: 10%;
     margin-top: 10%;
     margin-bottom: 10%;
   }
 
-  .anyPost {
+  .emptyPacks {
     background-color: #f2f2f2;
     border: 1px solid #ccc;
     border-radius: 5px;

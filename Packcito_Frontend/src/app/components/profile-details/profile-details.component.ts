@@ -15,7 +15,7 @@ import { UserService } from 'src/app/services/user.service';
 export class ProfileDetailsComponent implements OnInit {
   image: any
 
-  id!: string; 
+  id!: number; 
   actualPassword: string = ""
   newPassword: string=""
 

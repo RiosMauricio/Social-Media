@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Category } from 'src/app/models/category';
 import { User } from 'src/app/models/user';
 import { Package } from 'src/app/models/package';
 import { CategoryService } from 'src/app/services/category.service';
 import { UserService } from 'src/app/services/user.service';
 import { PackageService } from 'src/app/services/package.service';
+import { LogInService } from 'src/app/services/log-in.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,8 +14,12 @@ import { PackageService } from 'src/app/services/package.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  id!: string; // ID del usuario del perfil
+  id!: number; // ID del usuario del perfil
+  userLoggedId!: number;  
   user = new User; // Objeto del usuario del perfil
+  logUser = new User; // Objeto del usuario logueado
+
+  pack = new Package; 
 
   userFreePackages: Package[] = [] // Paquetes del usuario
   userPayPackages: Package[] = []
@@ -23,12 +28,16 @@ export class ProfileComponent implements OnInit {
   userCategoriesName: String[] = [] //Nombre de las categorias del usuario del perfil
 
   constructor(
+    private loginService: LogInService,
     private userService: UserService,
     private route: ActivatedRoute,
+    private router: Router, 
     private categoryService: CategoryService,
     private packageService: PackageService
   ) {
     this.user = new User(); // Inicializar objeto de usuario
+    this.logUser  = new User(); // Inicializar objeto de usuario logueado
+    this.pack = new Package();  //Inicializar pack
   }
 
   ngOnInit(): void {
@@ -36,6 +45,9 @@ export class ProfileComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.id = params['id'];
     })
+
+    //Se obtiene el id del usuario en sesion
+    this.userLoggedId = this.loginService.userLoggedId()!
 
     // Se cargan en la pagina los datos del usuario del perfil en el que se esta navegando
     this.getUser();
@@ -83,6 +95,10 @@ export class ProfileComponent implements OnInit {
         }
       }
     })
+  }
+
+  createPackage(){
+    this.router.navigate(['/pack-form'])
   }
 
 }

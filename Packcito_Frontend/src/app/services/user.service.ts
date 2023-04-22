@@ -25,7 +25,7 @@ export class UserService {
     return this._http.post(this.baseURL + '/createUser', datos, options)
   }
 
-  getUser(id: string): Observable<any> {
+  getUser(id: number): Observable<any> {
     const options = {
       method: "GET",
       headers: new HttpHeaders({
@@ -35,7 +35,7 @@ export class UserService {
     return this._http.get(this.baseURL + '/getUser/' + id, options)
   }
 
-  getUserCategories(id: string) {
+  getUserCategories(id: number) {
     const options = {
       method: "GET",
       headers: new HttpHeaders({

@@ -10,7 +10,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  id = ""; 
+  id!: number; 
   sessionUser = new User; 
   sessionActive!: boolean; 
   constructor(private loginService: LogInService, private router: Router, private userService: UserService) { 
