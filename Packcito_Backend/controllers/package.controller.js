@@ -21,12 +21,14 @@ const createPackage = async (req, res = response) => {
     idUser = parseInt(idUser);
     const data = JSON.parse(JSON.stringify(req.body)); // Obtener datos del cuerpo de la solicitud
     try {
+        const file = req.file;
+        console.log(req.file)
         const createdPackage = await prisma.package.create({ // Crear un nuevo paquete en la base de datos utilizando los datos proporcionados
             data: {
                 title: data.title,
                 description: data.description,
-                icon: data.icon,
-                price: data.price,
+                icon: file.filename, // Guardar el nombre del archivo en el campo "icon"
+                price: Number(data.price),
                 authorId: idUser,
                 valoration: 0
             },
@@ -119,15 +121,14 @@ const getAllPackages = async (req, res = response) => {
  */
 const getPackageByUser = async (req, res) => {
     try {
-        const { userId, packageId } = req.params;
-        const parsedUserId = parseInt(userId);
+        const packageId  = req.params.packageId;
         const parsedPackageId = parseInt(packageId);
+        console.log(parsedPackageId)
 
         // Utilizar la función findFirst de Prisma con una consulta que incluya cláusulas where para filtrar el usuario y el paquete específico
         const package = await prisma.package.findFirst({
             where: {
                 id: parsedPackageId,
-                authorId: parsedUserId
             }
         });
 

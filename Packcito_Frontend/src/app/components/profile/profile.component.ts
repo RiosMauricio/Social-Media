@@ -21,8 +21,8 @@ export class ProfileComponent implements OnInit {
 
   pack = new Package; 
 
-  userFreePackages: Package[] = [] // Paquetes del usuario
-  userPayPackages: Package[] = []
+  userFreePackages: Package[] = [] // Paquetes gratis del usuario
+  userPayPackages: Package[] = [] // Paquetes pagos del usuario
 
   userCategories: Category[] = [] //Categorias del usuario del perfil
   userCategoriesName: String[] = [] //Nombre de las categorias del usuario del perfil
@@ -49,6 +49,8 @@ export class ProfileComponent implements OnInit {
     //Se obtiene el id del usuario en sesion
     this.userLoggedId = this.loginService.userLoggedId()!
 
+    console.log(this.id, this.userLoggedId)
+
     // Se cargan en la pagina los datos del usuario del perfil en el que se esta navegando
     this.getUser();
     this.getUserPackages()
@@ -70,22 +72,12 @@ export class ProfileComponent implements OnInit {
   getUser() {
     this.userService.getUser(this.id).subscribe((result) => {
       this.user = result.data.user;
-
-      // Verificar y actualizar las rutas de la foto de perfil y la imagen de portada del usuario
-      // la cadena "uploads" puede variar dependiendo del nombre de la carpeta contenedora de imagenes en el servidor
-      //Se realiza tanto para el banner como para la foto de perfil
-      if (this.user.profilePhoto.startsWith("uploads\\")) {
-        this.user.profilePhoto = this.user.profilePhoto.split("\\")[1]
-      }
-      if (this.user.banner.startsWith("uploads\\")) {
-        this.user.banner = this.user.banner.split("\\")[1]
-      }
     })
   }
 
   // Obtener paquetes del usuario a traves del service de usuarios
   getUserPackages() {
-    this.packageService.getPackByUser(this.id).subscribe((result: any) => {
+    this.packageService.getPacksByUser(this.id).subscribe((result: any) => {
       // Añadir paquetes del usuario al arreglo de paquetes de usuario
       for (let i = 0; i < result.data.packages.length; i++) {
         if(result.data.packages[i].price == 0){
@@ -95,6 +87,10 @@ export class ProfileComponent implements OnInit {
         }
       }
     })
+  }
+
+  getPack(packId: number){
+    this.router.navigate(['/pack', packId]);
   }
 
   createPackage(){

@@ -391,91 +391,38 @@ verifyToken = async (req, res, next) => {
   }
 }
 
-
-//Multer para subida de archivos a la base de datos.
-const storage = multer.diskStorage({
-  destination: (req, file, callBack) => {
-    callBack(null, './uploads')
-  },
-  filename: (req, file, callBack) => {
-    callBack(null, `${Date.now()}-${file.originalname}`)
-  }
-})
-
-const upload = multer({
-  storage: storage,
-  fileFilter: function (req, file, cb) {
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-      return cb(new Error('Solo se permiten imágenes.'))
-    }
-    cb(null, true)
-  }
-})
-
-const updateProfilePhoto = (req, res) => {
+const updateProfilePhoto = async (req, res) => {
   let { id } = req.params;
   id = parseInt(id);
 
-  upload.single('file')(req, res, async function (err) {
-      if (err instanceof multer.MulterError) {
-        // A Multer error occurred when uploading.
-        const error = new Error('Multer Error')
-        error.httpStatusCode = 400
-        return next(error)
-      } else if (err) {
-        // An unknown error occurred when uploading.
-        res.status(400).json({
-          status: 0,
-          msg: 'El archivo debe ser una imagen jpg, jpeg o png'
-        });
-        const error = new Error('El archivo debe ser una imagen jpg, jpeg o png')
-        error.httpStatusCode = 400
-        return next(error)
-      }
-      const file = req.file;
-      console.log(file.filename);
-  
-      await prisma.user.update({
-        where: { id },
-        data: {
-          profilePhoto: file.path,
-        },
-      });
-      res.send(file);
+  const file = req.file;
+  console.log(file.filename);
+
+  await prisma.user.update({
+    where: { id },
+    data: {
+      profilePhoto: file.filename,
+    },
   });
+  res.send(file);
+
 }
 
-const updateBanner = (req, res, next) => {
+const updateBanner = async (req, res) => {
   let { id } = req.params;
   id = parseInt(id);
 
-  upload.single('file')(req, res, async function (err) {
-      if (err instanceof multer.MulterError) {
-        // A Multer error occurred when uploading.
-        const error = new Error('Multer Error')
-        error.httpStatusCode = 400
-        return next(error)
-      } else if (err) {
-        // An unknown error occurred when uploading.
-        res.status(400).json({
-          status: 0,
-          msg: 'El archivo debe ser una imagen jpg, jpeg o png'
-        });
-        const error = new Error('El archivo debe ser una imagen jpg, jpeg o png')
-        error.httpStatusCode = 400
-        return next(error)
-      }
-      const file = req.file;
-      console.log(file.filename);
-  
-      await prisma.user.update({
-        where: { id },
-        data: {
-          banner: file.path,
-        },
-      });
-      res.send(file);
+  const file = req.file;
+  console.log(file.filename);
+
+  await prisma.user.update({
+    where: { id },
+    data: {
+      banner: file.filename,
+    },
   });
+  res.send(file);
+
 }
 
 module.exports = {
