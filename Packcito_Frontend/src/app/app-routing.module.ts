@@ -12,7 +12,8 @@ const routes: Routes = [
   { path: 'log-in', component: LogInComponent}, 
   { path: 'profile/:id', component: ProfileComponent}, 
   { path: 'feed', component: FeedComponent}, 
-  { path: 'pack-form', component: PackFormComponent}, 
+  { path: 'pack/:packId', component: PackComponent},
+  {path: 'pack-form', component: PackFormComponent}, 
   { path: 'dashboard', component: DashboardComponent}, 
   { path: 'profile-details', component: ProfileDetailsComponent}
 ];

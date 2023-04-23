@@ -5,124 +5,132 @@
 <app-navbar></app-navbar> <!-- Barra de navegación personalizada -->
 
 <body style="width: 100%; overflow-x: hidden;">
-    <div class="p-0" style="margin-left: 78px">
-      <div class="row banner"> <!-- Div para la imagen del banner. la cadena http://localhost:3000/ debe cambiar a la direccion en donde se despliegue el backend. 
+  <div class="p-0" style="margin-left: 78px">
+    <div class="row banner">
+      <!-- Div para la imagen del banner. la cadena http://localhost:3000/ debe cambiar a la direccion en donde se despliegue el backend. 
         para mostrar la imagen, debe tener en cuenta este detalle y el nombre de la carpeta contenedora de imagenes en el servidor -->
-        <img src="http://localhost:3000/{{user.banner}}" style="width: 100%;"/>
-      </div>
-      
-      <div class="row profile-section"> <!-- Div para la sección del perfil -->
-        <div class="col-md-6 offset-md-3"> <!-- Se define el tamaño de la seccion del perfil y se centra-->
-          <mat-card class="shadow-sm" style="background-color: rgba(255, 255, 255, 0.753);"> <!--tarjeta de angular Material-->
-            <div class="card-body text-center">
-              
-              <!--Imagen de Perfil la cadena http://localhost:3000/ debe cambiar a la direccion en donde se despliegue el backend. 
-                para mostrar la imagen, debe tener en cuenta este detalle y el nombre de la carpeta contenedora de imagenes en el servidor -->
-              <img mat-card-image src="http://localhost:3000/{{user.profilePhoto}}" class="rounded-circle mb-3" /> 
-              <!--Datos del Perfil-->
-              <h2 class="mb-0">{{user.username}}</h2>
-              <p class="text-muted">{{user.description}}</p>
-              <hr />
-              <div class="row">
-                <div class="col-sm-6">
-                  <p class="mb-0">Apoyar con:</p>
-                </div>
-                <div class="col-sm-6 text-secondary">
-                  $5
-                </div>
-              </div>
-              <hr />
-              <div class="row">
-                <div class="col-sm-6">
-                  <p class="mb-0">Categorias:</p>
-                </div>
-                <div class="col-sm-6">
-                  <mat-chip-list aria-label="Categories" >
-                    <mat-chip *ngFor="let cat of userCategoriesName">
-                      {{cat}}
-                    </mat-chip>
-                  </mat-chip-list>
-                </div>
-              </div>
-              <hr />
-              <!--Pestañas de Angular Material para dividir las publicaciones gratis de las pagas.-->
-              <mat-tab-group mat-align-tabs="center">
-                <mat-tab label="Packs Gratuitos"> <!--Pestaña de Packs Gratuitos-->
-                  <div class="row" style="width: 100%;"> 
-                    <div class="emptyPacks" *ngIf="userFreePackages.length == 0"><!--Si no hay publicaciones, se muestra este mensaje.-->
-                      <p>No hay publicaciones</p>
-                      <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon" *ngIf="user.id == userLoggedId" (click)="createPackage()">
-                        <i class='bx bx-plus'></i>
-                      </button>
-                    </div>
-                    <div class="col-md-6 col-sm-12" *ngFor="let pack of userFreePackages"> 
-                      <mat-card class="packCard"><!--Tarjeta de pack gratiuto-->
-                        <mat-card-header style="justify-content: center">
-                          <mat-card-title>{{pack.title}}</mat-card-title>
-                        </mat-card-header>
-                         <!--Imagen de Preview de paquete la cadena http://localhost:3000/ debe cambiar a la direccion en donde se despliegue el backend. 
-                para mostrar la imagen, debe tener en cuenta este detalle y el nombre de la carpeta contenedora de imagenes en el servidor -->
-                        <img mat-card-image src="http://localhost:3000/{{pack.icon}}" alt="Photo of a Shiba Inu">
-                        <mat-card-content>
-                          <p>
-                            {{pack.description}}
-                          </p>
-                          <hr />
-                          <p>Valoracion: {{pack.valoration}}</p>
-                        </mat-card-content>
-                        <mat-card-actions>
-                          <button mat-raised-button color="accent">Ver Contenido</button>
-                        </mat-card-actions>
-                      </mat-card>
-                    </div>
-                    <div class="col-md-6" *ngIf="user.id == userLoggedId && userPayPackages.length > 0">
-                      <mat-card class="packCard">
-                        <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon" (click)="createPackage()">
-                          <i class='bx bx-plus'></i>
-                        </button>
-                      </mat-card>
-                    </div>
-                  </div>
-                </mat-tab>
-                <mat-tab label="Pack Pagos"><!--Pestaña de Packs Pagos-->
-                  <div class="row" style="width: 100%;">
-                    <div class="emptyPacks" *ngIf="userPayPackages.length == 0"><!--Si no hay publicaciones, se muestra este mensaje.-->
-                      <p>No hay publicaciones</p>
-                      <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon" *ngIf="user.id == userLoggedId" (click)="createPackage()">
-                        <i class='bx bx-plus'></i>
-                      </button>
-                    </div>
-                    <div class="col-md-6 col-sm-12" *ngFor="let pack of userPayPackages"> 
-                      <mat-card class="packCard"> <!--Tarjeta de pack pago-->
-                        <mat-card-header style="justify-content: center">
-                          <mat-card-title>{{pack.title}}</mat-card-title>
-                        </mat-card-header>
-                        <img mat-card-image src="http://localhost:3000/{{pack.icon}}" alt="Photo of a Shiba Inu">
-                        <mat-card-content>
-                          <p>
-                            {{pack.description}}
-                          </p>
-                          <hr />
-                          <p>Valoracion: {{pack.valoration}}</p>
-                        </mat-card-content>
-                        <mat-card-actions>
-                          <button mat-raised-button color="accent">Comprar Pack</button>
-                        </mat-card-actions>
-                      </mat-card>
-                    </div>
-                    <div class="col-md-6" *ngIf="user.id == userLoggedId && userPayPackages.length > 0" (click)="createPackage()">
-                      <mat-card class="packCard">
-                        <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
-                          <i class='bx bx-plus'></i>
-                        </button>
-                      </mat-card>
-                    </div>
-                  </div>            
-                </mat-tab>
-              </mat-tab-group>              
-            </div>
-          </mat-card>
-        </div>
-      </div> 
+      <img src="http://localhost:3000/{{user.banner}}" style="width: 100%;" />
     </div>
-  </body>
+
+    <div class="row profile-section"> <!-- Div para la sección del perfil -->
+      <div class="col-md-6 offset-md-3"> <!-- Se define el tamaño de la seccion del perfil y se centra-->
+        <mat-card class="shadow-sm" style="background-color: rgba(255, 255, 255, 0.753);">
+          <!--tarjeta de angular Material-->
+          <div class="card-body text-center">
+
+            <!--Imagen de Perfil la cadena http://localhost:3000/ debe cambiar a la direccion en donde se despliegue el backend. 
+                para mostrar la imagen, debe tener en cuenta este detalle y el nombre de la carpeta contenedora de imagenes en el servidor -->
+            <img mat-card-image src="http://localhost:3000/{{user.profilePhoto}}" class="rounded-circle mb-3" />
+            <!--Datos del Perfil-->
+            <h2 class="mb-0">{{user.username}}</h2>
+            <p class="text-muted">{{user.description}}</p>
+            <hr />
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="mb-0">Apoyar con:</p>
+              </div>
+              <div class="col-sm-6 text-secondary">
+                $5
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="mb-0">Categorias:</p>
+              </div>
+              <div class="col-sm-6">
+                <mat-chip-list aria-label="Categories">
+                  <mat-chip *ngFor="let cat of userCategoriesName">
+                    {{cat}}
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+            </div>
+            <hr />
+            <!--Pestañas de Angular Material para dividir las publicaciones gratis de las pagas.-->
+            <mat-tab-group mat-align-tabs="center">
+              <mat-tab label="Packs Gratuitos"> <!--Pestaña de Packs Gratuitos-->
+                <div class="row" style="width: 100%;">
+                  <div class="emptyPacks" *ngIf="userFreePackages.length == 0">
+                    <!--Si no hay publicaciones, se muestra este mensaje.-->
+                    <p>No hay publicaciones</p>
+                    <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon"
+                      *ngIf="user.id == userLoggedId" (click)="createPackage()">
+                      <i class='bx bx-plus'></i>
+                    </button>
+                  </div>
+                  <div class="col-md-6 col-sm-12" *ngFor="let pack of userFreePackages">
+                    <mat-card class="packCard"><!--Tarjeta de pack gratiuto-->
+                      <mat-card-header style="justify-content: center">
+                        <mat-card-title>{{pack.title}}</mat-card-title>
+                      </mat-card-header>
+                      <!--Imagen de Preview de paquete la cadena http://localhost:3000/ debe cambiar a la direccion en donde se despliegue el backend. 
+                para mostrar la imagen, debe tener en cuenta este detalle y el nombre de la carpeta contenedora de imagenes en el servidor -->
+                      <img mat-card-image src="http://localhost:3000/{{pack.icon}}" alt="Photo of a Shiba Inu">
+                      <mat-card-content>
+                        <p>
+                          {{pack.description}}
+                        </p>
+                        <hr />
+                        <p>Valoracion: {{pack.valoration}}</p>
+                      </mat-card-content>
+                      <mat-card-actions>
+                        <button mat-raised-button color="accent" (click)="getPack(pack.id)">Ver Contenido</button>
+                      </mat-card-actions>
+                    </mat-card>
+                  </div>
+                  <div class="col-md-6" *ngIf="user.id == userLoggedId && userFreePackages.length > 0">
+                    <mat-card class="packCard">
+                      <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon"
+                        (click)="createPackage()">
+                        <i class='bx bx-plus'></i>
+                      </button>
+                    </mat-card>
+                  </div>
+                </div>
+              </mat-tab>
+              <mat-tab label="Pack Pagos"><!--Pestaña de Packs Pagos-->
+                <div class="row" style="width: 100%;">
+                  <div class="emptyPacks" *ngIf="userPayPackages.length == 0">
+                    <!--Si no hay publicaciones, se muestra este mensaje.-->
+                    <p>No hay publicaciones</p>
+                    <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon"
+                      *ngIf="user.id == userLoggedId" (click)="createPackage()">
+                      <i class='bx bx-plus'></i>
+                    </button>
+                  </div>
+                  <div class="col-md-6 col-sm-12" *ngFor="let pack of userPayPackages">
+                    <mat-card class="packCard"> <!--Tarjeta de pack pago-->
+                      <mat-card-header style="justify-content: center">
+                        <mat-card-title>{{pack.title}}</mat-card-title>
+                      </mat-card-header>
+                      <img mat-card-image src="http://localhost:3000/{{pack.icon}}" alt="Photo of a Shiba Inu">
+                      <mat-card-content>
+                        <p>
+                          {{pack.description}}
+                        </p>
+                        <hr />
+                        <p>Valoracion: {{pack.valoration}}</p>
+                      </mat-card-content>
+                      <mat-card-actions>
+                        <button mat-raised-button color="accent" (click)="getPack(pack.id)">Comprar Pack</button>
+                      </mat-card-actions>
+                    </mat-card>
+                  </div>
+                  <div class="col-md-6" *ngIf="user.id == userLoggedId && userPayPackages.length > 0"
+                    (click)="createPackage()">
+                    <mat-card class="packCard">
+                      <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+                        <i class='bx bx-plus'></i>
+                      </button>
+                    </mat-card>
+                  </div>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</body>

@@ -1,1 +1,31 @@
 <app-navbar></app-navbar>
+
+<body class="container"><br>
+    <h1 class="text-center">Crea un Nuevo paquete</h1>
+    <mat-card class="packForm">
+        <div class="text-center">
+            <label for="newPackPhoto">
+                <img class="packImage" [src]="imageUrl || 'http://localhost:3000/' + pack.icon" alt="">
+            </label> 
+            <input name="newPackPhoto" id="newPackPhoto" type="file" (change)="selectImage($event)" hidden>
+            <br>
+            Click sobre la imagen para cambiarla
+        </div>
+        <mat-card-content><br>
+            <mat-form-field class="inputForm">
+                <mat-label>Nombre del pack</mat-label>
+                <input matInput [(ngModel)]="pack.title">
+            </mat-form-field><br>
+            <mat-form-field class="inputForm">
+                <textarea matInput placeholder="Descripcion breve..." [(ngModel)]="pack.description"></textarea>
+            </mat-form-field>
+            <mat-form-field class="inputForm">
+                <mat-label>Precio (Si no completas este campo, el pack será gratuito.)</mat-label>
+                <input type="number" value=0 matInput [(ngModel)]="pack.price">
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions style="display: flex; justify-content: center;">
+            <button mat-raised-button color="accent" (click)="createPackage()">Crear Pack</button>
+        </mat-card-actions>
+    </mat-card>
+</body>
