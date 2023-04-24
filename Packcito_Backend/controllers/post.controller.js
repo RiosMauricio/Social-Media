@@ -14,11 +14,12 @@ const createPost = async (req, res = response) => {
     try {
         let { idPackage } = req.params;
         idPackage = parseInt(idPackage);
+        const mediaFiles = req.files.map((file) => file.filename); // Obtener los nombres de archivo de los archivos cargados
         const createdPost = await prisma.post.create({ // Crear un nuevo post en la base de datos utilizando los datos proporcionados
             data: {
                 title: data.title,
                 description: data.description, 
-                media: data.media, 
+                media: mediaFiles.join(';'), // Convertir la lista de nombres de archivo en una cadena separada por comas
                 createdAt: data.createdAt, 
                 valoration: data.valoration, 
                 package: {

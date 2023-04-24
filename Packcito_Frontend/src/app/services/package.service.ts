@@ -22,16 +22,6 @@ export class PackageService {
     return this._http.get(this.baseURL + '/getPacks/' + userId, options)
   }
 
-  getPackCategories(packId: number){
-    const options = {
-      method: "GET",
-      headers: new HttpHeaders({
-        "Content-Type": "application/json"
-      }),
-    }
-    return this._http.get(this.baseURL + '/getPackCategories/' + packId, options)
-  }
-
   getPack(packId: number){
     const options = {
       method: "GET",

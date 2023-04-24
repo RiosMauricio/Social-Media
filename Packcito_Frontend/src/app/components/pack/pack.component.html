@@ -1,1 +1,39 @@
-<p>pack works!</p>
+<app-navbar></app-navbar>
+<div class="container mt-5">
+  <h1 class="text-center">Feed de red social</h1>
+  <mat-grid-list cols="3" rowHeight="450px" gutterSize="20px">
+    <mat-grid-tile *ngFor="let post of posts">
+      <mat-card class="card">
+        <button class="image-button" (click)="getPost(post.id)">
+          <img mat-card-image class="postImage" src="http://localhost:3000/{{ post.media }}" alt="">
+        </button>
+        <mat-card-header style="margin-left: -5%">
+          <mat-card-title>{{post.title}}</mat-card-title>
+          <mat-card-subtitle>{{ post.createdAt | date: 'dd/MM/yyyy'}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          {{ post.description }}
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-icon-button>
+            <mat-icon>favorite</mat-icon>
+          </button>
+          <button mat-icon-button>
+            <mat-icon>comment</mat-icon>
+          </button>
+          <button mat-icon-button>
+            <mat-icon>share</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile *ngIf="pack.authorId == userLoggedId">
+      <div>
+        <button class="image-button text-center">
+          <img style="max-width: 250px;" (click)="createPost()" src="../../../assets/agregar.png" alt="">
+        </button>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+  
+</div>

@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Package } from 'src/app/models/package';
 import { LogInService } from 'src/app/services/log-in.service';
 import { PackageService } from 'src/app/services/package.service';
@@ -14,20 +15,21 @@ export class PackFormComponent implements OnInit {
   loggedUserId!: number
   pack = new Package;
 
-  constructor(private logInService: LogInService,private packageService: PackageService, private cdr: ChangeDetectorRef) { 
+  constructor(private loginService: LogInService, private packageService: PackageService, private router: Router) { 
     this.pack = new Package()
   }
 
   ngOnInit(): void {
-    this.loggedUserId = this.logInService.userLoggedId()!
+    this.loggedUserId = this.loginService.userLoggedId()!
     console.log(this.loggedUserId)
     this.pack.price = 0;
     this.pack.icon = "defaultPackage.png"
   }
 
   createPackage(){
-    this.packageService.createPackage(this.loggedUserId , this.pack, this.file).subscribe((result: any)=>{
-      console.log("guardado", result)      
+    this.packageService.createPackage(this.loggedUserId, this.pack, this.file).subscribe((result: any) => {
+      console.log("guardado", result);
+      window.location.reload();
     })
   }
 
