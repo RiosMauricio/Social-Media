@@ -29,7 +29,7 @@ model Package {
   icon        String?
   price       Float
   valoration  Float?
-  author      User       @relation(fields: [authorId], references: [id])
+  author      User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId    Int
   posts       Post[]
 }
@@ -42,7 +42,7 @@ model Post {
   createdAt   DateTime  @default(now())
   valoration  Float?
   packageId   Int
-  package     Package   @relation(fields: [packageId], references: [id])
+  package     Package   @relation(fields: [packageId], references: [id], onDelete: Cascade)
   comments    Comment[]
 }
 
@@ -51,7 +51,7 @@ model Category {
   name        String
   description String?
   icon        String?
-  users       User[]
+  users       User[] 
 }
 
 model Comment {
@@ -59,7 +59,7 @@ model Comment {
   text      String
   createdAt DateTime @default(now())
   postId    Int
-  post      Post     @relation(fields: [postId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   authorId  Int
-  author    User     @relation(fields: [authorId], references: [id])
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
 }

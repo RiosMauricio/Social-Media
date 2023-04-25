@@ -22,12 +22,12 @@ const createPackage = async (req, res = response) => {
     const data = JSON.parse(JSON.stringify(req.body)); // Obtener datos del cuerpo de la solicitud
     try {
         const file = req.file;
-        console.log(req.file)
+        const icon = file ? file.filename : "defaultPackage.png";
         const createdPackage = await prisma.package.create({ // Crear un nuevo paquete en la base de datos utilizando los datos proporcionados
             data: {
                 title: data.title,
                 description: data.description,
-                icon: file.filename, // Guardar el nombre del archivo en el campo "icon"
+                icon: icon, // Guardar el nombre del archivo en el campo "icon"
                 price: Number(data.price),
                 authorId: idUser,
                 valoration: 0

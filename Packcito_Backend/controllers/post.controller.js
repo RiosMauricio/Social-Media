@@ -139,6 +139,35 @@ const getAllPosts = async (req, res = response) => {
     }
 };
 
+
+const getPost = async (req, res) => {
+    //con findunique buscamos un elemento dada una condicion, en este caso el id de usuario
+    let { postId } = req.params;
+    postId = parseInt(postId);
+    try {
+      const post = await prisma.post.findUnique({ where: { id: postId  } });
+      if (!post) {
+        res.status(404).json({
+          status: 404,
+          message: 'post no encontrado',
+        });
+        return;
+      }
+      //devuelve los datos del usuario en formato json.
+      res.status(200).json({
+        status: 200,
+        data: { post },
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        status: 500,
+        message: 'internal server error',
+      });
+    }
+  };
+
+
 /**
 * @method DELETE
 * @description elimina un post especifico
@@ -216,4 +245,4 @@ const updatePost = async (req, res = response) => {
         });
     }
 };
-module.exports = { createPost, getAllPostsByPackage, getPostsByPackage, deletePost, updatePost, getAllPosts };
+module.exports = { createPost, getPost, getAllPostsByPackage, getPostsByPackage, deletePost, updatePost, getAllPosts };

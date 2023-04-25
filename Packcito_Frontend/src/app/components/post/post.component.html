@@ -1,1 +1,93 @@
-<p>post works!</p>
+<div class="content" style="width:1000px; height: 100%;">
+    <div class="card" style="width:100%; border-color: transparent;">
+        <div class="row">
+            <div class="col-md-7">
+                <div id="carouselExampleFade" class="carousel slide carousel-fade">
+                    <div class="carousel-inner">
+                      <div class="carousel-item" *ngFor="let media of postMedia; let i = index" [ngClass]="{'active': i === currentIndex}">
+                        <!--Se verifica que tipo de contenido hay que mostrar (Imagen/video/audio)-->
+                        <!--Imagen-->
+                        <img  *ngIf="media.endsWith('jpg') || media.endsWith('jpeg') || media.endsWith('png')"
+                        src="http://localhost:3000/{{media}}" class="sliderPost w-100" alt="...">
+                        <!--Video-->
+                        <video controls controlsList="nodownload" *ngIf="media.endsWith('mp4') || media.endsWith('webm')" class="video">
+                          <source *ngIf="media.endsWith('mp4')" src="http://localhost:3000/{{media}}" type="video/mp4">
+                          <source *ngIf="media.endsWith('webm')" src="http://localhost:3000/{{media}}" type="video/webm">
+                          Tu navegador no soporta la etiqueta de video.
+                        </video>   
+                        <!--Audio-->
+                        <img src="../../../assets/audio.png" *ngIf="media.endsWith('mp3') || media.endsWith('wav') || media.endsWith('flac')" class="sliderPost">
+                        <audio controls controlsList="nodownload" *ngIf="media.endsWith('mp3') || media.endsWith('wav') || media.endsWith('flac')" style="width: 100%;"> 
+                          <source src="http://localhost:3000/{{media}}" type="audio/mpeg">
+                          <source src="http://localhost:3000/{{media}}" type="audio/wav">
+                          <source src="http://localhost:3000/{{media}}" type="audio/flac">
+                        </audio>                     
+                      </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" (click)="prev()">
+                      <span class="carousel-control-prev-icon" style="margin-top: 100%;" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" (click)="next()">
+                      <span class="carousel-control-next-icon" style="margin-top: 100%;" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+            </div>
+            </div>
+            <div class="col-md-5">
+                <div class="card-body" style="height: 40%; border-bottom: 1px solid rgb(212, 212, 212)">
+                    <h1 class="card-title">{{post.title}}</h1>
+                    <h3 class="card-subtitle mb-2 text-muted ">{{ post.createdAt | date: 'dd/MM/yyyy'}}</h3>
+                    <p class="card-text">{{post.description}}</p>
+                </div>
+                <!--Comentarios-->
+                <div style="height: 60%;   border: 1px solid red;">
+                  <!-- Agregar sección de comentarios -->
+                    <div class="row d-flex justify-content-center" style="width: 100%;">
+                  
+                      <div class="card p-3">
+                  
+                        <div class="d-flex justify-content-between align-items-center">
+                  
+                          <div class="user d-flex flex-row align-items-center">
+                  
+                            <img src="https://i.imgur.com/hczKIze.jpg" width="30" class="user-img rounded-circle mr-2">
+                            <span><small class="font-weight-bold text-primary">james_olesenn</small> <small class="font-weight-bold">Hmm, This poster looks cool</small></span>
+                  
+                          </div>
+                  
+                  
+                          <small>2 days ago</small>
+                  
+                        </div>
+                  
+                  
+                        <div class="action d-flex justify-content-between mt-2 align-items-center">
+                  
+                          <div class="reply px-4">
+                            <small>Remove</small>
+                            <span class="dots"></span>
+                            <small>Reply</small>
+                            <span class="dots"></span>
+                            <small>Translate</small>
+                  
+                          </div>
+                  
+                          <div class="icons align-items-center">
+                  
+                            <i class="fa fa-star text-warning"></i>
+                            <i class="fa fa-check-circle-o check-icon"></i>
+                  
+                          </div>
+                  
+                        </div>
+                  
+                    </div>
+                  
+                  </div>
+                  
+              </div>
+            </div>
+        </div>
+    </div>
+</div>

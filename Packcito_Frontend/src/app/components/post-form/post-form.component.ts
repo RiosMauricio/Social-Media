@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
 import { Post } from 'src/app/models/post';
 import { PostService } from 'src/app/services/post.service';
 
@@ -26,20 +25,19 @@ export class PostFormComponent implements OnInit {
   }
 
   createPost(){
-    console.log(this.post)
-    this.postService.createPost(this.packId, this.post, this.files).subscribe((result: any) => {
-      console.log("guardado", result);
-      window.location.reload();
-    })
+    if(this.files.length <=10){
+      this.postService.createPost(this.packId, this.post, this.files).subscribe((result: any) => {
+        console.log("guardado", result);
+        window.location.reload();
+      })
+    }else{
+      console.log("se permite un maximo de 10 archivos por post.")
+    }
+    
   }
 
   selectImage($event: any){
     this.files = $event.target.files;
-    const reader = new FileReader();
-    reader.readAsDataURL(this.files[0]);
-    reader.onload = () => {
-      this.imageUrl = reader.result as string;
-    };
   }
 
 }

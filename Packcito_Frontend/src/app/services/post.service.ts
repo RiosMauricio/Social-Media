@@ -23,6 +23,18 @@ export class PostService {
     return this._http.get(this.baseURL + '/getAllPostsByPackage/' + packId, options)
   }
 
+  getPost(postId: number){
+    const options = {
+      method: "GET",
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "authorization": this.logInService.getToken()
+      }),
+    }
+    return this._http.get(this.baseURL + '/getPost/' + postId, options)
+  
+  }
+
   //procedimiento para crear usuarios en el sistema.
   createPost(idPack: number, post: Post, media: File[]): Observable<any> {
     const formData = new FormData();

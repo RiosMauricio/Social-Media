@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PostFormComponent } from '../post-form/post-form.component';
+import { PostComponent } from '../post/post.component';
 import { PackageService } from 'src/app/services/package.service';
 
 
@@ -63,7 +64,9 @@ export class PackComponent implements OnInit {
   }
 
   getPost(postId: number){
-    this.router.navigate(['/post', postId]);
+    const dialogRef = this.dialog.open(PostComponent, {
+      data: { postId: postId }
+    });
   }
 
   createPost() {
