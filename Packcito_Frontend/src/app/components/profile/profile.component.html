@@ -56,7 +56,7 @@
                     <p>No hay publicaciones</p>
                     <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon"
                       *ngIf="user.id == userLoggedId" (click)="createPackage()">
-                      <i class='bx bx-plus'></i>
+                      <mat-icon>add</mat-icon>
                     </button>
                   </div>
                   <div class="col-md-6 col-sm-12" *ngFor="let pack of userFreePackages">
@@ -83,7 +83,7 @@
                     <mat-card class="packCard">
                       <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon"
                         (click)="createPackage()">
-                        <i class='bx bx-plus'></i>
+                        <mat-icon>add</mat-icon>
                       </button>
                     </mat-card>
                   </div>
@@ -96,7 +96,7 @@
                     <p>No hay publicaciones</p>
                     <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon"
                       *ngIf="user.id == userLoggedId" (click)="createPackage()">
-                      <i class='bx bx-plus'></i>
+                      <mat-icon>add</mat-icon>
                     </button>
                   </div>
                   <div class="col-md-6 col-sm-12" *ngFor="let pack of userPayPackages">
@@ -121,7 +121,7 @@
                     (click)="createPackage()">
                     <mat-card class="packCard">
                       <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
-                        <i class='bx bx-plus'></i>
+                        <mat-icon>add</mat-icon>
                       </button>
                     </mat-card>
                   </div>

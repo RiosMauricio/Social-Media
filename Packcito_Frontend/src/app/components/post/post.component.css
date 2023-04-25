@@ -1,0 +1,35 @@
+  .mat-elevation-z4 {
+    box-shadow: 0;
+    border-color: transparent;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .sliderPost {
+    min-height: 500px; 
+    height: auto; /* ajusta el valor de altura según sea necesario */
+    width: 500px;
+    max-height: 500px; 
+    margin-left: auto;
+    margin-right: auto;
+    display: block; /* para centrar verticalmente la imagen */
+  }
+
+  .video {
+    max-width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .carousel-control-prev{
+    height: 70%;
+  }
+
+  .carousel-control-next{
+    height: 70%;
+  }
+
+  

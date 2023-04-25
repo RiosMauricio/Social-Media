@@ -7,6 +7,8 @@ import { CategoryService } from 'src/app/services/category.service';
 import { UserService } from 'src/app/services/user.service';
 import { PackageService } from 'src/app/services/package.service';
 import { LogInService } from 'src/app/services/log-in.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PackFormComponent } from '../pack-form/pack-form.component';
 
 @Component({
   selector: 'app-profile',
@@ -15,11 +17,11 @@ import { LogInService } from 'src/app/services/log-in.service';
 })
 export class ProfileComponent implements OnInit {
   id!: number; // ID del usuario del perfil
-  userLoggedId!: number;  
+  userLoggedId!: number;
   user = new User; // Objeto del usuario del perfil
   logUser = new User; // Objeto del usuario logueado
 
-  pack = new Package; 
+  pack = new Package;
 
   userFreePackages: Package[] = [] // Paquetes gratis del usuario
   userPayPackages: Package[] = [] // Paquetes pagos del usuario
@@ -31,12 +33,13 @@ export class ProfileComponent implements OnInit {
     private loginService: LogInService,
     private userService: UserService,
     private route: ActivatedRoute,
-    private router: Router, 
+    private router: Router,
     private categoryService: CategoryService,
-    private packageService: PackageService
+    private packageService: PackageService,
+    public dialog: MatDialog
   ) {
     this.user = new User(); // Inicializar objeto de usuario
-    this.logUser  = new User(); // Inicializar objeto de usuario logueado
+    this.logUser = new User(); // Inicializar objeto de usuario logueado
     this.pack = new Package();  //Inicializar pack
   }
 
@@ -48,8 +51,6 @@ export class ProfileComponent implements OnInit {
 
     //Se obtiene el id del usuario en sesion
     this.userLoggedId = this.loginService.userLoggedId()!
-
-    console.log(this.id, this.userLoggedId)
 
     // Se cargan en la pagina los datos del usuario del perfil en el que se esta navegando
     this.getUser();
@@ -80,24 +81,36 @@ export class ProfileComponent implements OnInit {
     this.packageService.getPacksByUser(this.id).subscribe((result: any) => {
       // Añadir paquetes del usuario al arreglo de paquetes de usuario
       for (let i = 0; i < result.data.packages.length; i++) {
-        if(result.data.packages[i].price == 0){
+        if (result.data.packages[i].price == 0) {
           this.userFreePackages.push(result.data.packages[i])
-        }else{
+        } else {
           this.userPayPackages.push(result.data.packages[i])
         }
       }
     })
   }
 
-  getPack(packId: number){
-    this.router.navigate(['/pack', packId]);
+  getPack(packId: number) {
+    if (this.loginService.userLoggedIn() == false) {
+      this.dialog.open(DialogElementsExampleDialog);
+    } else {
+      this.router.navigate(['/pack', packId]);
+    }
   }
 
-  createPackage(){
-    this.router.navigate(['/pack-form'])
+  createPackage() {
+    this.dialog.open(PackFormComponent);
   }
 
 }
+
+@Component({
+  selector: 'dialog-log-in',
+  templateUrl: 'dialog-log-in.html',
+  styleUrls: ['./profile.component.css']
+})
+export class DialogElementsExampleDialog {}
+
 
 
 

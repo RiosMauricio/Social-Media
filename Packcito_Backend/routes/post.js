@@ -1,14 +1,17 @@
 const { Router } = require('express');
-const { createPost, getAllPostsByPackage, getPostsByPackage, deletePost, updatePost, getAllPosts } = require('../controllers/post.controller');
+const { createPost, getPost, getAllPostsByPackage, getPostsByPackage, deletePost, updatePost, getAllPosts } = require('../controllers/post.controller');
+const { uploadMultiple } = require('../controllers/multer.controller');
+
 const { verifyToken } = require('../controllers/user.controller')
 
 const router = Router();
 
 //rutas
-router.post('/createPost/:idPackage', verifyToken, createPost); 
+router.post('/createPost/:idPackage', verifyToken, uploadMultiple.array('media'), createPost); 
 router.get('/getAllPosts/', getAllPosts); 
-router.get('/getAllPostsByPackage/:idPackage', getAllPostsByPackage); 
-router.get('/getPost/:packageId/:postId', getPostsByPackage);
+router.get('/getPost/:postId', getPost);
+router.get('/getAllPostsByPackage/:idPackage', verifyToken, getAllPostsByPackage); 
+router.get('/getPost/:packageId/:postId', verifyToken, getPostsByPackage);
 router.delete('/deletePost/:postId', verifyToken, deletePost); 
 router.put('/updatePost/:postId', verifyToken, updatePost); 
 

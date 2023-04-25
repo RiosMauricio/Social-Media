@@ -1,0 +1,31 @@
+<app-navbar></app-navbar>
+
+<br>
+<div class="row justify-content-center">
+  <div class="col-md-6 d-flex">
+    <mat-card class="postForm">
+      <h1 class="text-center">Crea un Nuevo Post</h1>
+      <div class="text-center">
+        <label for="newPostFile">
+          <img class="postImage" [src]="'http://localhost:3000/' + post.media" alt="">
+        </label>
+        <input name="newPostFile" id="newPostFile" type="file" (change)="selectImage($event)" hidden multiple>
+        <br><br>
+        <p>Click sobre la imagen para agregar fotos, videos o audios (hasta 10).</p>
+        <p>El primero que cargues funcionara como miniatura.</p>
+      </div>
+      <mat-card-content><br>
+        <mat-form-field class="inputForm">
+          <mat-label>Titulo del post</mat-label>
+          <input matInput [(ngModel)]="post.title">
+        </mat-form-field><br>
+        <mat-form-field class="inputForm">
+          <textarea matInput placeholder="Descripcion breve..." [(ngModel)]="post.description"></textarea>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions style="display: flex; justify-content: center;">
+        <button mat-raised-button color="accent" (click)="createPost()">Crear Post</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

@@ -9,6 +9,11 @@ import { MatTabsModule } from '@angular/material/tabs';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,8 +27,9 @@ import { ProfileDetailsComponent } from './components/profile-details/profile-de
 import { NavbarComponent } from './components/layout/navbar/navbar.component';
 import { PackFormComponent } from './components/pack-form/pack-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatChipsModule} from '@angular/material/chips';
+import { PostComponent } from './components/post/post.component';
+import { PostFormComponent } from './components/post-form/post-form.component';
+
 
 @NgModule({
   declarations: [
@@ -36,6 +42,8 @@ import {MatChipsModule} from '@angular/material/chips';
     ProfileDetailsComponent,
     NavbarComponent,
     PackFormComponent,
+    PostComponent,
+    PostFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +59,10 @@ import {MatChipsModule} from '@angular/material/chips';
     MatButtonModule,
     MatCheckboxModule, 
     MatChipsModule, 
-    MatToolbarModule
+    MatToolbarModule, 
+    MatGridListModule,
+    MatDialogModule, 
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
