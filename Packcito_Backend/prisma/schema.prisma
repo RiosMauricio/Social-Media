@@ -16,8 +16,8 @@ model User {
   banner       String?
   description  String?
   packages     Package[]
-  followers    User[]     @relation("UserFollowers")
-  following    User[]     @relation("UserFollowers")
+  subscriptions      Subscription[] @relation("subscriber")
+  subscribers        Subscription[] @relation("subscribedTo")
   categories   Category[]
   comments     Comment[]
 }
@@ -27,7 +27,7 @@ model Package {
   title       String
   description String?
   icon        String?
-  price       Float
+  premium     Boolean    @default(false)
   valoration  Float?
   author      User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId    Int
@@ -62,4 +62,15 @@ model Comment {
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   authorId  Int
   author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+model Subscription {
+  id                 Int      @id @default(autoincrement())
+  subscriber         User     @relation("subscriber", fields: [subscriberId], references: [id])
+  subscriberId       Int
+  subscribedTo       User     @relation("subscribedTo", fields: [subscribedToId], references: [id])
+  subscribedToId     Int
+  createdAt          DateTime @default(now())
+
+  @@unique([subscriberId, subscribedToId])
 }

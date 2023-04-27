@@ -23,7 +23,10 @@
             <img mat-card-image src="http://localhost:3000/{{user.profilePhoto}}" class="rounded-circle mb-3" />
             <!--Datos del Perfil-->
             <h2 class="mb-0">{{user.username}}</h2>
-            <p class="text-muted">{{user.description}}</p>
+            <h3 class="mb-0" style="color: rgb(148, 148, 148);">{{user.description}}</h3>
+            <!--Controles de subscripciones-->
+            <button mat-raised-button color="primary" *ngIf="userLoggedId != user.id && isSubscribed != true" (click)="subscribe()">Suscribirse</button>
+            <button mat-raised-button color="accent" *ngIf="userLoggedId != user.id && isSubscribed == true" (click)="unSubscribe()">Anular suscripcion</button>
             <hr />
             <div class="row">
               <div class="col-sm-6">
@@ -89,7 +92,7 @@
                   </div>
                 </div>
               </mat-tab>
-              <mat-tab label="Pack Pagos"><!--Pestaña de Packs Pagos-->
+              <mat-tab label="Packs Premium"><!--Pestaña de Packs Pagos-->
                 <div class="row" style="width: 100%;">
                   <div class="emptyPacks" *ngIf="userPayPackages.length == 0">
                     <!--Si no hay publicaciones, se muestra este mensaje.-->

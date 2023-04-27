@@ -32,4 +32,23 @@
     height: 70%;
   }
 
-  
+  .commentBox{
+    position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    width: 80%; 
+    height: 60px;
+  }
+
+  .commentButton {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 10px;
+    padding: 10px;
+    background-color: #6610f2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }

@@ -28,7 +28,7 @@ const createPackage = async (req, res = response) => {
                 title: data.title,
                 description: data.description,
                 icon: icon, // Guardar el nombre del archivo en el campo "icon"
-                price: Number(data.price),
+                premium: data.premium === 'true' ? true : false,
                 authorId: idUser,
                 valoration: 0
             },
@@ -205,7 +205,7 @@ const deletePackage = async (req, res = response) => {
                 title: data.title,
                 description: data.description,
                 icon: data.icon,
-                price: data.price,
+                premium: data.premium === 'true' ? true : false,
             },
         });
 

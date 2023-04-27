@@ -22,7 +22,6 @@ export class PackFormComponent implements OnInit {
   ngOnInit(): void {
     this.loggedUserId = this.loginService.userLoggedId()!
     console.log(this.loggedUserId)
-    this.pack.price = 0;
     this.pack.icon = "defaultPackage.png"
   }
 

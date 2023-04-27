@@ -9,6 +9,8 @@ import { PackageService } from 'src/app/services/package.service';
 import { LogInService } from 'src/app/services/log-in.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PackFormComponent } from '../pack-form/pack-form.component';
+import { SubscriptionComponent } from '../subscription/subscription.component';
+import { SubscriptionService } from 'src/app/services/subscription.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,6 +19,8 @@ import { PackFormComponent } from '../pack-form/pack-form.component';
 })
 export class ProfileComponent implements OnInit {
   id!: number; // ID del usuario del perfil
+  userInSession = false; 
+  isSubscribed = false; 
   userLoggedId!: number;
   user = new User; // Objeto del usuario del perfil
   logUser = new User; // Objeto del usuario logueado
@@ -36,6 +40,7 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private categoryService: CategoryService,
     private packageService: PackageService,
+    private subscriptionService: SubscriptionService, 
     public dialog: MatDialog
   ) {
     this.user = new User(); // Inicializar objeto de usuario
@@ -44,6 +49,8 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //verificar si hay un usuario en sesion
+    this.userInSession = this.loginService.userLoggedIn(); 
     // Obtener el ID del usuario de la ruta
     this.route.params.subscribe(params => {
       this.id = params['id'];
@@ -54,7 +61,8 @@ export class ProfileComponent implements OnInit {
 
     // Se cargan en la pagina los datos del usuario del perfil en el que se esta navegando
     this.getUser();
-    this.getUserPackages()
+    this.getUserPackages(); 
+    this.checkSubscription();
 
     // Obtener las categorías del usuario y sus nombres
     this.userService.getUserCategories(this.id).subscribe((result: any) => {
@@ -81,7 +89,7 @@ export class ProfileComponent implements OnInit {
     this.packageService.getPacksByUser(this.id).subscribe((result: any) => {
       // Añadir paquetes del usuario al arreglo de paquetes de usuario
       for (let i = 0; i < result.data.packages.length; i++) {
-        if (result.data.packages[i].price == 0) {
+        if (result.data.packages[i].premium == false) {
           this.userFreePackages.push(result.data.packages[i])
         } else {
           this.userPayPackages.push(result.data.packages[i])
@@ -96,6 +104,35 @@ export class ProfileComponent implements OnInit {
     } else {
       this.router.navigate(['/pack', packId]);
     }
+  }
+
+  subscribe() {
+    if (this.loginService.userLoggedIn() == false) {
+      this.dialog.open(DialogElementsExampleDialog);
+    } else {
+      const dialogRef = this.dialog.open(SubscriptionComponent, {
+        data: {
+          subscriberId: this.userLoggedId,
+          subscribedToId: this.user.id
+        }
+      });
+    }
+  }
+
+  unSubscribe(){
+    if (this.loginService.userLoggedIn() == false) {
+      this.dialog.open(DialogElementsExampleDialog);
+    } else {
+      this.subscriptionService.unSubscribe(this.userLoggedId, this.user.id).subscribe((result: any)=>{
+        window.location.reload()
+      })
+    }
+  }
+
+  checkSubscription(){
+    this.subscriptionService.checkSubscription(this.userLoggedId, this.id).subscribe((result: any)=>{
+      this.isSubscribed = result.isSubscribed
+    })
   }
 
   createPackage() {

@@ -12,6 +12,7 @@ app.use(express.static('./uploads'))
 
 //routes
 app.use('/api/user', require('./routes/user'))
+app.use('/api/subscription', require('./routes/subscription'))
 app.use('/api/category', require('./routes/category'))
 app.use('/api/package', require('./routes/package'))
 app.use('/api/post', require('./routes/post'))

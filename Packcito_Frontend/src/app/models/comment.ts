@@ -1,5 +1,9 @@
-import { User } from "./user";
-
 export class Comment {
-    // otras propiedades y métodos según tu necesidad
-  }
+  id!: number; 
+  text!: string; 
+  createdAt!: Date; 
+  postId!: number; 
+  authorId!: number; 
+  authorName!: string
+  // otras propiedades y métodos según tu necesidad
+}

@@ -14,6 +14,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -29,6 +31,7 @@ import { PackFormComponent } from './components/pack-form/pack-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PostComponent } from './components/post/post.component';
 import { PostFormComponent } from './components/post-form/post-form.component';
+import { SubscriptionComponent } from './components/subscription/subscription.component';
 
 
 @NgModule({
@@ -44,6 +47,7 @@ import { PostFormComponent } from './components/post-form/post-form.component';
     PackFormComponent,
     PostComponent,
     PostFormComponent,
+    SubscriptionComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,7 +66,9 @@ import { PostFormComponent } from './components/post-form/post-form.component';
     MatToolbarModule, 
     MatGridListModule,
     MatDialogModule, 
-    MatIconModule
+    MatIconModule, 
+    MatMenuModule, 
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -38,7 +38,7 @@ export class PackageService {
     formData.append('icon', file);
     formData.append('title', pack.title);
     formData.append('description', pack.description);
-    formData.append('price', pack.price.toString());
+    formData.append('premium', pack.premium.toString());
 
     const options = {
       method: "POST",

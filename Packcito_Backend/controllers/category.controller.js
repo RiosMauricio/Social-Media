@@ -74,8 +74,8 @@ const getAllCategories = async (req, res = response) => {
  */
 const getCategoryById = async (req, res = response) => {
     //con findunique buscamos un elemento dada una condicion, en este caso el id de usuario
-    let { id } = req.params;
-    id = parseInt(id);
+    let { categoryId } = req.params;
+    id = parseInt(categoryId);
     try {
       const category = await prisma.category.findUnique({ where: { id } });
       if (!category) {
@@ -99,5 +99,33 @@ const getCategoryById = async (req, res = response) => {
     }
   };
 
+  /**
+ * @name getCategoryUsers
+ * @description retorna una categoria segun su id en la bdd; en caso de no existir el resultado es null
+ * @params id: int
+ * @returns {}category || null
+ */
+  const getCategoryUsers= async (req, res = response) => {
+    let { categoryId } = req.params;
+    id = parseInt(categoryId);
+    try {
+      //con el metodo findmany traemos a los usuarios y los asignamos a data.
+      //y prisma genera el query para la consulta
+      const categories = await prisma.$queryRaw`
+      SELECT B FROM _categorytouser
+      WHERE A = ${id}`;
+      res.status(200).json({
+        status: 200,
+        data: { categories }
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        status: 500,
+        message: 'internal server error',
+      });
+    }
+  };
 
-module.exports = {createCategory, getAllCategories, getCategoryById};
+
+module.exports = {createCategory, getAllCategories, getCategoryById, getCategoryUsers};

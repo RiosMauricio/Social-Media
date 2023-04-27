@@ -132,6 +132,37 @@ const getUserById = async (req, res = response) => {
 };
 
 /**
+ * @name getUserByUsername
+ * @description retorna un usuario segun su id en la bdd; en caso de no existir el resultado es null
+ * @params id: int
+ * @returns {}Usuario || null
+ */
+const getUserByUsername = async (req, res = response) => {
+  let { username } = req.params;
+  try {
+    const users = await prisma.user.findMany({
+      where: {
+        username: {
+          contains: username,
+        },
+      },
+    });
+    res.status(200).json({
+      status: 200,
+      data: { users },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: 500,
+      message: 'Error interno del servidor',
+    });
+  }
+};
+
+  
+  
+/**
  * @method DELETE
  * @description elimina un usuario identificandolo por su id en la base de datos
  * @name deleteUser
@@ -280,7 +311,7 @@ const modifyPassword = async (req, res = response) => {
 
 /**
  * @method GET
- * @name getAllUsers
+ * @name getUserCategories
  * @description obtiene todos los usuarios registrados en la Base de Datos
 */
 const getUserCategories = async (req, res = response) => {
@@ -426,7 +457,7 @@ const updateBanner = async (req, res) => {
 }
 
 module.exports = {
-  createUser, getAllUsers, getUserById, deleteUser, modifyUser,
+  createUser, getAllUsers, getUserById, getUserByUsername, deleteUser, modifyUser,
   userLogin, verifyToken, getUserCategories, modifyPassword, updateProfilePhoto, updateBanner
 }
 

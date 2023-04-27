@@ -46,6 +46,26 @@ export class UserService {
 
   }
 
+  getAllUsers(): Observable<any> {
+    const options = {
+      method: "GET",
+      headers: new HttpHeaders({
+        "Content-Type": "application/json"
+      }),
+    }
+    return this._http.get(this.baseURL + '/getUsers/', options)
+  }
+
+  searchUsers(username: string): Observable<any>{
+    const options = {
+      method: "GET",
+      headers: new HttpHeaders({
+        "Content-Type": "application/json"
+      }),
+    }
+    return this._http.get(this.baseURL + '/getUserByUsername/' + username , options)
+  }
+
   updateUser(user: User): Observable<any> {
     const options = {
       headers: new HttpHeaders({

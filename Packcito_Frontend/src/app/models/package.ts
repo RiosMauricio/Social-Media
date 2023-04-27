@@ -7,7 +7,7 @@ export class Package {
     title!: string; 
     description!: string; 
     icon!: string; 
-    price!: number;
+    premium!: boolean;
     author!: User;  
     authorId!: number; 
     posts!: Post[]; 

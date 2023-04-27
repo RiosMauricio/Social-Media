@@ -21,7 +21,7 @@ export class CategoryService {
     return this._http.get(this.baseURL + '/getall', options);
   }
 
-  getCategory(id: string): Observable<any> {
+  getCategory(id: number): Observable<any> {
     const options = {
       method: "GET",
       headers: new HttpHeaders({
@@ -29,6 +29,16 @@ export class CategoryService {
       }),
     }
     return this._http.get(this.baseURL+'/getCategoryById/'+id, options)
+  }
+
+  getCategoryUsers(id: number){
+    const options = {
+      method: "GET",
+      headers: new HttpHeaders({
+        "Content-Type": "application/json"
+      }),
+    }
+    return this._http.get(this.baseURL+'/getCategoryUsers/'+id, options)
   }
 
   //

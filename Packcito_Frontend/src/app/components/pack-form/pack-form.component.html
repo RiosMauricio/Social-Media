@@ -19,10 +19,9 @@
             <mat-form-field class="inputForm">
                 <textarea matInput placeholder="Descripcion breve..." [(ngModel)]="pack.description"></textarea>
             </mat-form-field>
-            <mat-form-field class="inputForm">
-                <mat-label>Precio (Si no completas este campo, el pack será gratuito.)</mat-label>
-                <input type="number" value=0 matInput [(ngModel)]="pack.price">
-            </mat-form-field>
+            <mat-slide-toggle class="inputForm" [(ngModel)]="pack.premium">
+                Pack Premium (Solo usuarios suscriptos podran acceder a este contenido)
+            </mat-slide-toggle>
         </mat-card-content>
         <mat-card-actions style="display: flex; justify-content: center;">
             <button mat-raised-button color="accent" (click)="createPackage()">Crear Pack</button>
