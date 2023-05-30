@@ -19,9 +19,9 @@ import { SubscriptionService } from 'src/app/services/subscription.service';
 })
 export class ProfileComponent implements OnInit {
   id!: number; // ID del usuario del perfil
-  userInSession = false; 
-  isSubscribed = false; 
-  userLoggedId!: number;
+  userInSession = false; //variable que verifica que hay un usuario en sesion
+  isSubscribed = false; //variable que verifica si el usuario en sesion esta suscrito al perfil
+  userLoggedId!: number; //Id del usuario logueado, o usuario en sesion
   user = new User; // Objeto del usuario del perfil
   logUser = new User; // Objeto del usuario logueado
 

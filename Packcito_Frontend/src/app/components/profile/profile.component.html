@@ -93,7 +93,10 @@
                 </div>
               </mat-tab>
               <mat-tab label="Packs Premium"><!--Pestaña de Packs Pagos-->
-                <div class="row" style="width: 100%;">
+                <div class="emptyPacks" *ngIf="isSubscribed == false && userLoggedId != id">
+                  <p>Debes estar suscrito a este usuario para ver su contenido premium</p>
+                </div>
+                <div class="row" style="width: 100%;" *ngIf="isSubscribed == true || userLoggedId == id">
                   <div class="emptyPacks" *ngIf="userPayPackages.length == 0">
                     <!--Si no hay publicaciones, se muestra este mensaje.-->
                     <p>No hay publicaciones</p>
@@ -116,7 +119,7 @@
                         <p>Valoracion: {{pack.valoration}}</p>
                       </mat-card-content>
                       <mat-card-actions>
-                        <button mat-raised-button color="accent" (click)="getPack(pack.id)">Comprar Pack</button>
+                        <button mat-raised-button color="accent" (click)="getPack(pack.id)">Ver Contenido</button>
                       </mat-card-actions>
                     </mat-card>
                   </div>

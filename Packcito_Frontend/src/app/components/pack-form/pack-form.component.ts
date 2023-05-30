@@ -23,6 +23,7 @@ export class PackFormComponent implements OnInit {
     this.loggedUserId = this.loginService.userLoggedId()!
     console.log(this.loggedUserId)
     this.pack.icon = "defaultPackage.png"
+    this.pack.premium = false;
   }
 
   createPackage(){
