@@ -40,7 +40,7 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private categoryService: CategoryService,
     private packageService: PackageService,
-    private subscriptionService: SubscriptionService, 
+    private subscriptionService: SubscriptionService,
     public dialog: MatDialog
   ) {
     this.user = new User(); // Inicializar objeto de usuario
@@ -50,7 +50,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     //verificar si hay un usuario en sesion
-    this.userInSession = this.loginService.userLoggedIn(); 
+    this.userInSession = this.loginService.userLoggedIn();
     // Obtener el ID del usuario de la ruta
     this.route.params.subscribe(params => {
       this.id = params['id'];
@@ -61,7 +61,7 @@ export class ProfileComponent implements OnInit {
 
     // Se cargan en la pagina los datos del usuario del perfil en el que se esta navegando
     this.getUser();
-    this.getUserPackages(); 
+    this.getUserPackages();
     this.checkSubscription();
 
     // Obtener las categorías del usuario y sus nombres
@@ -119,24 +119,30 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  unSubscribe(){
+  unSubscribe() {
     if (this.loginService.userLoggedIn() == false) {
       this.dialog.open(DialogElementsExampleDialog);
     } else {
-      this.subscriptionService.unSubscribe(this.userLoggedId, this.user.id).subscribe((result: any)=>{
+      this.subscriptionService.unSubscribe(this.userLoggedId, this.user.id).subscribe((result: any) => {
         window.location.reload()
       })
     }
   }
 
-  checkSubscription(){
-    this.subscriptionService.checkSubscription(this.userLoggedId, this.id).subscribe((result: any)=>{
+  checkSubscription() {
+    this.subscriptionService.checkSubscription(this.userLoggedId, this.id).subscribe((result: any) => {
       this.isSubscribed = result.isSubscribed
     })
   }
 
   createPackage() {
     this.dialog.open(PackFormComponent);
+  }
+
+  checkSession() {
+    if (this.loginService.userLoggedIn() == false) {
+      this.dialog.open(DialogElementsExampleDialog);
+    }
   }
 
 }
@@ -146,7 +152,7 @@ export class ProfileComponent implements OnInit {
   templateUrl: 'dialog-log-in.html',
   styleUrls: ['./profile.component.css']
 })
-export class DialogElementsExampleDialog {}
+export class DialogElementsExampleDialog { }
 
 
 
